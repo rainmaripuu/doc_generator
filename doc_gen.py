@@ -23,6 +23,7 @@ class DocGenFacotry():
         else:
             return gen
 
+
 if __name__ == '__main__':
     g = DocGenFacotry()
     option = input('Enter document format: ')
