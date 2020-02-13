@@ -1,10 +1,35 @@
+from fpdf import FPDF
+
+
+def gen():
+    with open('tekst.txt', 'r') as file:
+        content = file.read()
+        return content
+#        print(content)
+
+
+def pdf():
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font('Calibri', size = 15)
+    for line in gen():
+        pdf.cell(200, 10, txt = line, ln = 1, align = 'C')
+    pdf.output('something.pdf')
+
+if __name__ == '__main__':
+    pdf()
+
+'''
 class DocGenInterface():
     def gen():
-        pass
+        with open('tekst.txt', r) as file:
+            content = file.read()
+            print(content)
+
 
 class pdf(DocGenInterface):
     def gen(self):
-        print('generating .pdf file')
+        print(f'generating .pdf file')
 
 class word(DocGenInterface):
     def gen(self):
@@ -29,3 +54,5 @@ if __name__ == '__main__':
     option = input('Enter document format: ')
     gen_option = g.get_gen(option)
     gen_option.gen()
+
+'''
