@@ -1,9 +1,13 @@
 from fpdf import FPDF
+from docx import Document
 
 
 def gen():
     with open('tekst.txt', 'r') as file:
-        content = file.read()
+        content = []
+        for line in file:
+            content.append(line)
+#        content = file.read()
         return content
 #        print(content)
 
@@ -11,13 +15,34 @@ def gen():
 def pdf():
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font('Calibri', size = 15)
+    pdf.set_font('Arial', size = 10)
     for line in gen():
-        pdf.cell(200, 10, txt = line, ln = 1, align = 'C')
+        pdf.cell(500, 10, txt = line, ln = 1, align = 'L')
     pdf.output('something.pdf')
 
+def word():
+    doc = Document()
+    for line in gen():
+        doc.add_paragraph(line)
+    doc.save('something.doc')
+
 if __name__ == '__main__':
-    pdf()
+    gen()
+    doc_form = input('Choose your doc format (pdf/word): ').upper()
+    if doc_form == 'PDF':
+        pdf()
+        print('Converting txt to .pdf file')
+    elif doc_form == 'WORD':
+        word()
+        print('Converting txt to .doc file')
+    else:
+        print('Do not support this format yet')
+        quit()
+
+
+
+
+
 
 '''
 class DocGenInterface():
